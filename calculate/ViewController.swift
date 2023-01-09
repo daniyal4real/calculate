@@ -50,6 +50,7 @@ class ViewController: UIViewController {
             zeroButton.backgroundColor = .white
             zeroButton.setTitle("0", for: .normal)
             zeroButton.tag = 1
+            zeroButton.layer.cornerRadius = 50
             holder.addSubview(zeroButton)
 
             zeroButton.addTarget(self, action: #selector(zeroTapped), for: .touchUpInside)
@@ -61,6 +62,7 @@ class ViewController: UIViewController {
                 button1.setTitle("\(x+1)", for: .normal)
                 holder.addSubview(button1)
                 button1.tag = x+2
+                button1.layer.cornerRadius = 50
                 button1.addTarget(self, action: #selector(numberPressed(_:)), for: .touchUpInside)
             }
 
@@ -71,6 +73,7 @@ class ViewController: UIViewController {
                 button2.setTitle("\(x+4)", for: .normal)
                 holder.addSubview(button2)
                 button2.tag = x+5
+                button2.layer.cornerRadius = 50
                 button2.addTarget(self, action: #selector(numberPressed(_:)), for: .touchUpInside)
             }
 
@@ -81,17 +84,47 @@ class ViewController: UIViewController {
                 button3.setTitle("\(x+7)", for: .normal)
                 holder.addSubview(button3)
                 button3.tag = x+8
+                button3.layer.cornerRadius = 50
                 button3.addTarget(self, action: #selector(numberPressed(_:)), for: .touchUpInside)
             }
+            
+            
+            let additial = ["AC", "+/-", "%"]
+            for x in 0..<3 {
+                let button4 = UIButton(frame: CGRect(x: buttonSize * CGFloat(x), y: holder.frame.size.height-(buttonSize*5), width: buttonSize, height: buttonSize))
+                button4.setTitleColor(.black, for: .normal)
+                button4.backgroundColor = .white
+                button4.setTitle(additial[x], for: .normal)
+                holder.addSubview(button4)
+                button4.layer.cornerRadius = 50
+                button4.addTarget(self, action: #selector(numberPressed(_:)), for: .touchUpInside)
+                for i in additial {
+                    if i == "AC" {
+                        button4.addTarget(self, action: #selector(clearResult), for: .touchUpInside)
+                    }
+//                    if i == "%" {
+//                        button4.addTarget(self, action: #selector(<#T##@objc method#>), for: .touchUpInside)
+//                    }
+                }
+//                switch additial{
+//                case "AC":
+//                    button4.addTarget(self, action: #selector(clearResult), for: .touchUpInside)
+//                    break
+//                case "+/-":
+//                    button4
+//                }
+                }
+            
 
-            let clearButton = UIButton(frame: CGRect(x: 0, y: holder.frame.size.height-(buttonSize*5), width: view.frame.size.width - buttonSize, height: buttonSize))
-            clearButton.setTitleColor(.black, for: .normal)
-            clearButton.backgroundColor = .white
-            clearButton.setTitle("Clear ALL", for: .normal)
-            holder.addSubview(clearButton)
+//            let clearButton = UIButton(frame: CGRect(x: 0, y: holder.frame.size.height-(buttonSize*5), width: view.frame.size.width - buttonSize, height: buttonSize))
+//            clearButton.setTitleColor(.black, for: .normal)
+//            clearButton.backgroundColor = .white
+//            clearButton.setTitle("Clear ALL", for: .normal)
+//            clearButton.layer.cornerRadius = 50
+//            holder.addSubview(clearButton)
 
 
-            let operations = ["=","+", "-", "x", "/"]
+            let operations = ["=","+", "-", "x", "/", "%"]
 
             for x in 0..<5 {
                 let button4 = UIButton(frame: CGRect(x: buttonSize * 3, y: holder.frame.size.height-(buttonSize * CGFloat(x+1)), width: buttonSize, height: buttonSize))
@@ -100,14 +133,16 @@ class ViewController: UIViewController {
                 button4.setTitle(operations[x], for: .normal)
                 holder.addSubview(button4)
                 button4.tag = x+1
+                button4.layer.cornerRadius = 50
                 button4.addTarget(self, action: #selector(operationPressed(_:)), for: .touchUpInside)
             }
 
-            resultLabel.frame = CGRect(x: 20, y: clearButton.frame.origin.y - 110.0, width: view.frame.size.width - 40, height: 100)
+            
+            resultLabel.frame = CGRect(x: 20, y: holder.frame.size.height-(buttonSize*6) , width: view.frame.size.width - 40, height: 100)
             holder.addSubview(resultLabel)
 
             // Actions
-            clearButton.addTarget(self, action: #selector(clearResult), for: .touchUpInside)
+
         }
 
         @objc func clearResult() {
